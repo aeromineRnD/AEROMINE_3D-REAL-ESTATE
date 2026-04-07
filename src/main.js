@@ -14,7 +14,7 @@ async function init() {
   const viewer = new Viewer(appEl);
 
   // -------------------------------------------------------------------------
-  // Initial load — show all apartments
+  // Initial load - show all apartments
   // -------------------------------------------------------------------------
 
   setLoading(true, appEl, spinnerEl, floorBtns);

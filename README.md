@@ -1,18 +1,18 @@
 # AEROMINE 3D Real Estate
 
-An interactive 3D apartment complex viewer built with [Three.js](https://threejs.org/) and [Vite](https://vitejs.dev/). Users explore a full building overview, then drill into individual floor plans with a single click — no page reloads, no frameworks.
+An interactive 3D apartment complex viewer built with [Three.js](https://threejs.org/) and [Vite](https://vitejs.dev/). Users explore a full building overview, then drill into individual floor plans with a single click - no page reloads, no frameworks.
 
 ---
 
 ## Features
 
-- **Full-building overview** — loads the complete apartment complex on startup
-- **Floor-level exploration** — switch between Floor 1 and Floor 2 floor plans instantly
-- **Zero-flash model swap** — old scene is removed and the new GLB is streamed in while the UI dims and a spinner shows progress
-- **Auto-fit camera** — every model swap resets the camera to a clean isometric overview of the new scene
-- **Orbit controls** — rotate, pan, and zoom freely; damped for smooth feel
-- **DRACO + KTX2 support** — compressed geometry and textures load out of the box
-- **Fully responsive** — layout and hint pills adapt to mobile widths
+- **Full-building overview** - loads the complete apartment complex on startup
+- **Floor-level exploration** - switch between Floor 1 and Floor 2 floor plans instantly
+- **Zero-flash model swap** - old scene is removed and the new GLB is streamed in while the UI dims and a spinner shows progress
+- **Auto-fit camera** - every model swap resets the camera to a clean isometric overview of the new scene
+- **Orbit controls** - rotate, pan, and zoom freely; damped for smooth feel
+- **DRACO + KTX2 support** - compressed geometry and textures load out of the box
+- **Fully responsive** - layout and hint pills adapt to mobile widths
 
 ---
 
@@ -40,14 +40,14 @@ AEROMINE_3D_REAL_ESTATE/
 │       ├── Floor_1_apartment_floor_plan.glb  # Floor 1 floor plan
 │       └── Floor_2_apartment_floor_plan.glb  # Floor 2 floor plan
 ├── src/
-│   ├── main.js      # App entry — floor selector logic, loading states
-│   └── viewer.js    # Viewer class — scene, camera, renderer, model swap
+│   ├── main.js      # App entry - floor selector logic, loading states
+│   └── viewer.js    # Viewer class - scene, camera, renderer, model swap
 ├── index.html
 ├── style.css
 └── package.json
 ```
 
-### `src/viewer.js` — `Viewer` class
+### `src/viewer.js` - `Viewer` class
 
 | Method | Description |
 |---|---|
@@ -134,10 +134,10 @@ Add a corresponding button in `index.html` inside `.floor-selector`:
 
 ## Browser Support
 
-Any browser with WebGL 2 support — Chrome, Firefox, Safari 15+, Edge.
+Any browser with WebGL 2 support - Chrome, Firefox, Safari 15+, Edge.
 
 ---
 
 ## License
 
-MIT — © [AEROMINE R&D Team](https://www.aeromine.info/)
+MIT - © [AEROMINE R&D Team](https://www.aeromine.info/)

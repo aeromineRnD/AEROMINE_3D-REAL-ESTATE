@@ -58,7 +58,7 @@ export class Viewer {
     this.scene.environment = pmrem.fromScene(new RoomEnvironment()).texture;
     pmrem.dispose();
 
-    // Build loader once — reused for every model swap
+    // Build loader once - reused for every model swap
     this._loader = new GLTFLoader();
 
     const draco = new DRACOLoader();
