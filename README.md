@@ -140,4 +140,4 @@ Any browser with WebGL 2 support — Chrome, Firefox, Safari 15+, Edge.
 
 ## License
 
-MIT — © [AEROMINE R&D Team](https://www.aeromine.com/)
+MIT — © [AEROMINE R&D Team](https://www.aeromine.info/)
