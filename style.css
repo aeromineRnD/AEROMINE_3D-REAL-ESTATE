@@ -1,0 +1,264 @@
+/* ==========================================================================
+   AEROMINE 3D Real Estate - UI
+   ========================================================================== */
+
+:root {
+  --bg-primary:   #f0f2f5;
+  --bg-secondary: #ffffff;
+  --bg-header:    rgba(255, 255, 255, 0.92);
+  --text-primary:   #1a1a2e;
+  --text-secondary: #4a4a6a;
+  --text-muted:     #8888a0;
+  --accent:       #0077b6;
+  --accent-hover: #005f99;
+  --border:       rgba(0, 0, 0, 0.1);
+  --shadow:       rgba(0, 0, 0, 0.10);
+  --shadow-lg:    rgba(0, 0, 0, 0.18);
+  --btn-bg:       rgba(0, 0, 0, 0.04);
+  --btn-hover-bg: rgba(0, 0, 0, 0.08);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --transition-fast:   0.18s ease;
+  --transition-normal: 0.3s ease;
+  --font: 'Inter', 'Raleway', system-ui, sans-serif;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  height: 100%;
+  overflow: hidden;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+header {
+  background: var(--bg-header);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.5rem 1.25rem 0.6rem;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.45rem;
+}
+
+.logo-text {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius-sm);
+  padding: 2px 7px;
+  flex-shrink: 0;
+}
+
+.header-title {
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin: 0;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+}
+
+.header-bottom {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   Floor Selector
+   ========================================================================== */
+
+.floor-selector {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.floor-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--btn-bg);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 5px 15px 5px 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  transition:
+    background   var(--transition-fast),
+    color        var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow   var(--transition-fast);
+}
+
+.floor-btn-icon {
+  font-size: 0.9rem;
+  line-height: 1;
+  opacity: 0.7;
+}
+
+.floor-btn:hover:not(.active):not(:disabled) {
+  background: var(--btn-hover-bg);
+  color: var(--text-primary);
+}
+
+.floor-btn.active {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+  box-shadow: 0 2px 10px rgba(0, 119, 182, 0.3);
+}
+
+.floor-btn.active .floor-btn-icon {
+  opacity: 1;
+}
+
+.floor-btn:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+/* ==========================================================================
+   Hint Pills
+   ========================================================================== */
+
+.header-hints {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+
+.hint-pill {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  background: var(--btn-bg);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 2px 10px;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* ==========================================================================
+   Main viewport
+   ========================================================================== */
+
+.wrap {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+#app {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* canvas fade during model swap */
+#app canvas {
+  transition: opacity 0.2s ease;
+}
+
+#app.loading canvas {
+  opacity: 0.35;
+}
+
+/* ==========================================================================
+   Spinner
+   ========================================================================== */
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -20px 0 0 -20px;
+  background-color: var(--accent);
+  border-radius: 50%;
+  animation: sk-scaleout 1s infinite ease-in-out;
+  pointer-events: none;
+  z-index: 50;
+  display: none;
+}
+
+@keyframes sk-scaleout {
+  0%   { transform: scale(0); opacity: 1; }
+  100% { transform: scale(1); opacity: 0; }
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.site-footer {
+  text-align: center;
+  padding: 6px 0;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--bg-header);
+  border-top: 1px solid var(--border);
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.site-footer strong { color: var(--accent); font-weight: 600; }
+.footer-sep { margin: 0 6px; opacity: 0.35; }
+.footer-link {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+.footer-link:hover { color: var(--accent-hover); text-decoration: underline; }
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .header-title { font-size: 0.92rem; }
+  .floor-btn    { font-size: 0.72rem; padding: 4px 12px 4px 9px; }
+  .hint-pill    { font-size: 0.62rem; }
+  .header-hints { display: none; }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "aeromine-3d-real-estate",
+  "version": "1.0.0",
+  "description": "Interactive 3D real estate viewer with floor-level exploration",
+  "author": "AEROMINE",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "vite --port 3001",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "three": "^0.176.0"
+  },
+  "devDependencies": {
+    "vite": "^5.1.8"
+  }
+}

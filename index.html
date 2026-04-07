@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AEROMINE 3D Real Estate - Interactive floor-by-floor apartment viewer">
+  <meta name="author" content="AEROMINE R&D Team">
+  <title>AEROMINE 3D Real Estate</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,12..72,100..900;1,12..72,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <header>
+    <div class="header-top">
+      <span class="logo-text">AEROMINE</span>
+      <h1 class="header-title">3D Real Estate</h1>
+    </div>
+    <div class="header-bottom">
+      <nav class="floor-selector" aria-label="Floor selection">
+        <button class="floor-btn active" data-floor="all">
+          <span class="floor-btn-icon">&#x2302;</span>
+          All Floors
+        </button>
+        <button class="floor-btn" data-floor="1">
+          <span class="floor-btn-icon">&#x31;</span>
+          Floor 1
+        </button>
+        <button class="floor-btn" data-floor="2">
+          <span class="floor-btn-icon">&#x32;</span>
+          Floor 2
+        </button>
+      </nav>
+      <div class="header-hints">
+        <span class="hint-pill">Left drag: Rotate</span>
+        <span class="hint-pill">Right drag: Pan</span>
+        <span class="hint-pill">Scroll: Zoom</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div id="app"></div>
+    <div class="spinner" id="spinner"></div>
+  </div>
+
+  <footer class="site-footer">
+    <span>Created by <strong>AEROMINE R&amp;D Team</strong></span>
+    <span class="footer-sep">&bull;</span>
+    <a href="https://www.aeromine.com/" target="_blank" class="footer-link">Website</a>
+    <span class="footer-sep">&bull;</span>
+    <a href="https://www.linkedin.com/company/aeromine/" target="_blank" class="footer-link">LinkedIn</a>
+  </footer>
+
+  <script type="module" defer src="/src/main.js"></script>
+</body>
+</html>
