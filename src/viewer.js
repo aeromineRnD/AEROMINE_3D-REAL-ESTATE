@@ -133,22 +133,57 @@ export class Viewer {
   /** Load the initial model (no previous model to remove). */
   async load(url) {
     const root = await this._loadGLTF(url);
-    this._fitCamera(root);
+    const { position, target } = this._fitCamera(root);
+    this.camera.position.copy(position);
+    this.controls.target.copy(target);
+    this.controls.update();
+    this.controls.saveState();
     this.scene.add(root);
     this.content = root;
     return root;
   }
 
-  /**
-   * Replace the current model with a new one.
-   * Removes the old model, loads the new one, and resets the camera view.
-   */
+  /** Replace the current model with a new one, tweening the camera to the new position. */
   async swapModel(url) {
     if (this.content) {
       this.scene.remove(this.content);
       this.content = null;
     }
-    return this.load(url);
+    const root = await this._loadGLTF(url);
+    const { position, target } = this._fitCamera(root);
+    this.scene.add(root);
+    this.content = root;
+    await this._tweenCamera(position, target);
+    return root;
+  }
+
+  _tweenCamera(toPosition, toTarget, duration = 800) {
+    return new Promise(resolve => {
+      const fromPosition = this.camera.position.clone();
+      const fromTarget   = this.controls.target.clone();
+      const startTime    = performance.now();
+
+      this.controls.enabled = false;
+
+      const tick = (now) => {
+        const t    = Math.min((now - startTime) / duration, 1);
+        const ease = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+
+        this.camera.position.lerpVectors(fromPosition, toPosition, ease);
+        this.controls.target.lerpVectors(fromTarget, toTarget, ease);
+        this.controls.update();
+
+        if (t < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          this.controls.enabled = true;
+          this.controls.saveState();
+          resolve();
+        }
+      };
+
+      requestAnimationFrame(tick);
+    });
   }
 
   async _loadGLTF(url) {
@@ -169,8 +204,6 @@ export class Viewer {
     const size   = box.getSize(new Vector3()).length();
     const center = box.getCenter(new Vector3());
 
-    this.controls.reset();
-
     // Center model at world origin
     object.position.x -= center.x;
     object.position.y -= center.y;
@@ -181,9 +214,9 @@ export class Viewer {
     this.camera.far  = size * 100;
     this.camera.updateProjectionMatrix();
 
-    // Isometric-ish overview from top-front-right
-    this.camera.position.set(size * 0.6, size * 0.5, size * 0.6);
-    this.camera.lookAt(new Vector3(0, 0, 0));
-    this.controls.saveState();
+    return {
+      position: new Vector3(size * 0.6, size * 0.5, size * 0.6),
+      target:   new Vector3(0, 0, 0),
+    };
   }
 }
