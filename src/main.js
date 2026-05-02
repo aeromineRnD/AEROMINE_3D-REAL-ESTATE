@@ -10,7 +10,8 @@ async function init() {
   const appEl      = document.getElementById('app');
   const spinnerEl  = document.getElementById('spinner');
   const floorBtns  = document.querySelectorAll('.floor-btn');
-  const resetBtn   = document.getElementById('resetView');
+  const resetBtn      = document.getElementById('resetView');
+  const screenshotBtn = document.getElementById('saveScreenshot');
 
   const viewer = new Viewer(appEl);
 
@@ -28,6 +29,12 @@ async function init() {
   }
 
   resetBtn.addEventListener('click', () => viewer.resetView());
+
+  screenshotBtn.addEventListener('click', () => {
+    const activeFloor = document.querySelector('.floor-btn.active')?.dataset.floor ?? 'view';
+    const label = activeFloor === 'all' ? 'all-floors' : `floor-${activeFloor}`;
+    viewer.screenshot(`aeromine-${label}.png`);
+  });
 
   // -------------------------------------------------------------------------
   // Floor selector

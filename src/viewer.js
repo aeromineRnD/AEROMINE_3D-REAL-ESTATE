@@ -44,7 +44,7 @@ export class Viewer {
 
     this.camera = new PerspectiveCamera(60, w / h, 0.01, 1000);
 
-    this.renderer = new WebGLRenderer({ antialias: true });
+    this.renderer = new WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(w, h);
     this.container.appendChild(this.renderer.domElement);
@@ -113,6 +113,13 @@ export class Viewer {
 
   resetView() {
     this.controls.reset();
+  }
+
+  screenshot(filename = 'aeromine-3d.png') {
+    const link = document.createElement('a');
+    link.download = filename;
+    link.href = this.renderer.domElement.toDataURL('image/png');
+    link.click();
   }
 
   // ---------------------------------------------------------------------------
