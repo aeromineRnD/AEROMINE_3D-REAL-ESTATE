@@ -161,7 +161,33 @@ header {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
+  align-items: center;
   margin-left: auto;
+}
+
+.reset-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  line-height: 1;
+  width: 26px;
+  height: 26px;
+  background: var(--btn-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition:
+    background   var(--transition-fast),
+    color        var(--transition-fast),
+    transform    var(--transition-fast);
+}
+
+.reset-btn:hover {
+  background: var(--btn-hover-bg);
+  color: var(--accent);
+  transform: rotate(-30deg);
 }
 
 .hint-pill {

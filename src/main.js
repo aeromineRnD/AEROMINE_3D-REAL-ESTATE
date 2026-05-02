@@ -7,9 +7,10 @@ const MODELS = {
 };
 
 async function init() {
-  const appEl     = document.getElementById('app');
-  const spinnerEl = document.getElementById('spinner');
-  const floorBtns = document.querySelectorAll('.floor-btn');
+  const appEl      = document.getElementById('app');
+  const spinnerEl  = document.getElementById('spinner');
+  const floorBtns  = document.querySelectorAll('.floor-btn');
+  const resetBtn   = document.getElementById('resetView');
 
   const viewer = new Viewer(appEl);
 
@@ -25,6 +26,8 @@ async function init() {
   } finally {
     setLoading(false, appEl, spinnerEl, floorBtns);
   }
+
+  resetBtn.addEventListener('click', () => viewer.resetView());
 
   // -------------------------------------------------------------------------
   // Floor selector
