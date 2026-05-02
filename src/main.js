@@ -7,12 +7,24 @@ const MODELS = {
 };
 
 async function init() {
-  const appEl      = document.getElementById('app');
-  const spinnerEl  = document.getElementById('spinner');
-  const floorBtns  = document.querySelectorAll('.floor-btn');
+  const appEl         = document.getElementById('app');
+  const spinnerEl     = document.getElementById('spinner');
+  const floorBtns     = document.querySelectorAll('.floor-btn');
   const resetBtn      = document.getElementById('resetView');
   const screenshotBtn = document.getElementById('saveScreenshot');
   const themeBtn      = document.getElementById('themeToggle');
+  const progressBar   = document.getElementById('progressBar');
+  const progressFill  = document.getElementById('progressFill');
+
+  function setProgress(ratio) {
+    if (ratio === null) {
+      progressBar.classList.remove('active');
+      progressFill.style.width = '0%';
+    } else {
+      progressBar.classList.add('active');
+      progressFill.style.width = `${Math.round(ratio * 100)}%`;
+    }
+  }
 
   const viewer = new Viewer(appEl);
 
@@ -22,11 +34,12 @@ async function init() {
 
   setLoading(true, appEl, spinnerEl, floorBtns);
   try {
-    await viewer.load(MODELS.all);
+    await viewer.load(MODELS.all, setProgress);
   } catch (err) {
     showError(appEl, MODELS.all, err);
   } finally {
     setLoading(false, appEl, spinnerEl, floorBtns);
+    setProgress(null);
   }
 
   const THEME_BG = { light: '#f0f2f5', dark: '#0d0f14' };
@@ -71,11 +84,12 @@ async function init() {
 
       setLoading(true, appEl, spinnerEl, floorBtns);
       try {
-        await viewer.swapModel(url);
+        await viewer.swapModel(url, setProgress);
       } catch (err) {
         showError(appEl, url, err);
       } finally {
         setLoading(false, appEl, spinnerEl, floorBtns);
+        setProgress(null);
       }
     });
   });

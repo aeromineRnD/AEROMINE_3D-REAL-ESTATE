@@ -131,8 +131,8 @@ export class Viewer {
   // ---------------------------------------------------------------------------
 
   /** Load the initial model (no previous model to remove). */
-  async load(url) {
-    const root = await this._loadGLTF(url);
+  async load(url, onProgress) {
+    const root = await this._loadGLTF(url, onProgress);
     const { position, target } = this._fitCamera(root);
     this.camera.position.copy(position);
     this.controls.target.copy(target);
@@ -144,12 +144,12 @@ export class Viewer {
   }
 
   /** Replace the current model with a new one, tweening the camera to the new position. */
-  async swapModel(url) {
+  async swapModel(url, onProgress) {
     if (this.content) {
       this.scene.remove(this.content);
       this.content = null;
     }
-    const root = await this._loadGLTF(url);
+    const root = await this._loadGLTF(url, onProgress);
     const { position, target } = this._fitCamera(root);
     this.scene.add(root);
     this.content = root;
@@ -186,11 +186,23 @@ export class Viewer {
     });
   }
 
-  async _loadGLTF(url) {
-    const gltf = await this._loader.loadAsync(url);
-    const root = gltf.scene ?? gltf.scenes[0];
-    if (!root) throw new Error(`No scene found in GLTF: ${url}`);
-    return root;
+  _loadGLTF(url, onProgress) {
+    return new Promise((resolve, reject) => {
+      this._loader.load(
+        url,
+        (gltf) => {
+          const root = gltf.scene ?? gltf.scenes[0];
+          if (!root) { reject(new Error(`No scene found in GLTF: ${url}`)); return; }
+          resolve(root);
+        },
+        (event) => {
+          if (onProgress && event.lengthComputable) {
+            onProgress(event.loaded / event.total);
+          }
+        },
+        reject,
+      );
+    });
   }
 
   // ---------------------------------------------------------------------------

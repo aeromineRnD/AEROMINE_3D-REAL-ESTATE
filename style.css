@@ -243,6 +243,34 @@ header {
 }
 
 /* ==========================================================================
+   Progress bar
+   ========================================================================== */
+
+.progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 20;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.progress-bar.active {
+  opacity: 1;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  transition: width 0.15s ease;
+  box-shadow: 0 0 6px rgba(0, 119, 182, 0.6);
+}
+
+/* ==========================================================================
    Spinner
    ========================================================================== */
 
