@@ -115,6 +115,10 @@ export class Viewer {
     this.controls.reset();
   }
 
+  setBackground(hex) {
+    this.scene.background.set(hex);
+  }
+
   screenshot(filename = 'aeromine-3d.png') {
     const link = document.createElement('a');
     link.download = filename;

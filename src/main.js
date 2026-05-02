@@ -12,6 +12,7 @@ async function init() {
   const floorBtns  = document.querySelectorAll('.floor-btn');
   const resetBtn      = document.getElementById('resetView');
   const screenshotBtn = document.getElementById('saveScreenshot');
+  const themeBtn      = document.getElementById('themeToggle');
 
   const viewer = new Viewer(appEl);
 
@@ -27,6 +28,23 @@ async function init() {
   } finally {
     setLoading(false, appEl, spinnerEl, floorBtns);
   }
+
+  const THEME_BG = { light: '#f0f2f5', dark: '#0d0f14' };
+
+  function applyTheme(isDark) {
+    document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+    themeBtn.innerHTML                     = isDark ? '&#9728;' : '&#9790;';
+    themeBtn.title                         = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+    viewer.setBackground(isDark ? THEME_BG.dark : THEME_BG.light);
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  }
+
+  const savedTheme = localStorage.getItem('theme');
+  applyTheme(savedTheme === 'dark');
+
+  themeBtn.addEventListener('click', () => {
+    applyTheme(document.documentElement.dataset.theme !== 'dark');
+  });
 
   resetBtn.addEventListener('click', () => viewer.resetView());
 
